@@ -1,0 +1,46 @@
+{
+  "name": "optimus-prime",
+  "version": "1.0.0",
+  "description": "NestJS Module for report HTTP metrics using statsd",
+  "author": "Ajke.live",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:cov": "jest --coverage",
+    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "lint": "tslint -p tsconfig.json -c tslint.json",
+    "build": "rm -rf dist && tsc -p tsconfig.json",
+    "prepublish:npm": "npm run build",
+    "publish:npm": "npm publish --access public",
+    "prepublish:next": "npm run build",
+    "publish:next": "npm publish --access public --tag next",
+    "build:test": "npm build && npm pack"
+  },
+  "devDependencies": {
+    "@nestjs/common": "^8.0.6",
+    "@nestjs/core": "^8.0.6",
+    "@nestjs/testing": "8.0.6",
+    "@types/jest": "27.0.1",
+    "@types/node": "16.7.1",
+    "@types/supertest": "2.0.11",
+    "lint-staged": "11.1.2",
+    "jest": "27.0.6",
+    "rxjs": "^7.3.0",
+    "prettier": "2.3.2",
+    "supertest": "6.1.6",
+    "ts-jest": "27.0.5",
+    "tslint": "5.20.1",
+    "husky": "7.0.1",
+    "typescript": "4.3.5"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "dependencies": {
+    "hot-shots": "^8.5.0"
+  }
+}
