@@ -1,35 +1,57 @@
-import { Module, DynamicModule } from '@nestjs/common';
-import { ConfigModule } from '../config/config.module';
-import { ConfigService } from '../config/config.service';
-import { DbConfigError, DbError } from './db.error';
-import { MongooseModule, MongooseModuleOptions } from '@nestjs/mongoose';
+import { DynamicModule, Global, Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
+import { RedisPubSubModule } from '../redis-pub-sub/redis.module';
+import {
+  AccessPermission,
+  AccessPermissionSchema,
+} from './access-permission.schema';
+import { AccessPermissionService } from './access-permission.service';
 
+export interface DbConnectionOptions {
+  host?: string;
+  port?: number;
+  db?: string;
+  password?: string;
+  redisConfig?: RedisConnectionOptions;
+}
+
+export interface RedisConnectionOptions {
+  host?: string;
+  port?: number;
+  db?: string;
+  password?: string;
+}
+@Global()
 @Module({})
 export class AccessPermissionModule {
-  public static getNoSqlConnectionOptions(): MongooseModuleOptions {
-    const dbdata = config.get().mongo;
-
-    if (!dbdata) {
-      throw new DbConfigError('Database config is missing');
-    }
+  static register(options?: DbConnectionOptions): DynamicModule {
     return {
-      uri: dbdata,
-    };
-  }
-  public static forRoot(): DynamicModule {
-    return {
-      module: DatabaseModule,
+      module: AccessPermissionModule,
       imports: [
-        MongooseModule.forRootAsync({
-          imports: [ConfigModule],
-          useFactory: (configService: ConfigService) =>
-            DatabaseModule.getNoSqlConnectionOptions(configService),
-          inject: [ConfigService],
+        RedisPubSubModule.register({
+          host: options?.redisConfig?.host,
+          port: options?.redisConfig?.port,
         }),
+        MongooseModule.forRoot(
+          `mongodb://${options?.host || 'localhost'}:${
+            options?.port || 27017
+          }/${options?.db || 'sherlock_db'}`,
+          {
+            useNewUrlParser: true,
+            useCreateIndex: true,
+            useUnifiedTopology: true,
+            useFindAndModify: false,
+          }
+        ),
+        MongooseModule.forFeature([
+          {
+            name: AccessPermission.name,
+            schema: AccessPermissionSchema,
+          },
+        ]),
       ],
-      controllers: [],
-      providers: [],
-      exports: [],
+      providers: [AccessPermissionService],
+      exports: [AccessPermissionService],
     };
   }
 }

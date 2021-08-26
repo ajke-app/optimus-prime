@@ -10,7 +10,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-__exportStar(require("./typegoose.decorators"), exports);
-__exportStar(require("./typegoose.module"), exports);
-__exportStar(require("./typegoose.utils"), exports);
-__exportStar(require("./typegoose-options.interface"), exports);
+__exportStar(require("./access-permission.module"), exports);
+__exportStar(require("./access-permission.schema"), exports);
+__exportStar(require("./access-permission.service"), exports);
+//# sourceMappingURL=index.js.map

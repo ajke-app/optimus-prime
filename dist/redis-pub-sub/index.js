@@ -10,8 +10,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-__exportStar(require("./data-dog"), exports);
-__exportStar(require("./redis-pub-sub"), exports);
-__exportStar(require("./access-permission"), exports);
-__exportStar(require("./constants"), exports);
+__exportStar(require("./redis.constants"), exports);
+__exportStar(require("./redis.module"), exports);
+__exportStar(require("./redis.service"), exports);
 //# sourceMappingURL=index.js.map

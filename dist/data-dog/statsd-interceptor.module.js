@@ -37,3 +37,4 @@ StatsDInterceptorModule = StatsDInterceptorModule_1 = __decorate([
     common_1.Module({})
 ], StatsDInterceptorModule);
 exports.StatsDInterceptorModule = StatsDInterceptorModule;
+//# sourceMappingURL=statsd-interceptor.module.js.map

@@ -22,6 +22,7 @@
     "@nestjs/core": "^8.0.6",
     "@nestjs/testing": "8.0.6",
     "@typegoose/typegoose": "^8.2.0",
+    "@types/ioredis": "^4.27.0",
     "@types/jest": "27.0.1",
     "@types/node": "16.7.1",
     "@types/supertest": "2.0.11",
@@ -44,6 +45,7 @@
   "dependencies": {
     "@nestjs/mongoose": "^8.0.1",
     "hot-shots": "^8.5.0",
+    "ioredis": "^4.27.8",
     "is-class": "^0.0.9",
     "mongoose": "^5.13.8"
   }
